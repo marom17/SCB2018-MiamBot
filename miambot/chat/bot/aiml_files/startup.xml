@@ -1,0 +1,12 @@
+
+<aiml version="1.0.1" encoding="UTF-8">
+
+    <!-- This category works with the Standard AIML Set -->
+    <category>
+        <pattern>LOAD AIML B</pattern>
+        <template>
+            <learn>aiml_files/hello.xml</learn>
+        </template>
+    </category>
+
+</aiml>

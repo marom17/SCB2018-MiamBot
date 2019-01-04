@@ -1,0 +1,11 @@
+<aiml version="1.0.1" encoding="UTF-8">
+
+    <!-- This category works with the Standard AIML Set -->
+    <category>
+        <pattern>HELLO</pattern>
+        <template>
+            Hello!
+        </template>
+    </category>
+
+</aiml>
