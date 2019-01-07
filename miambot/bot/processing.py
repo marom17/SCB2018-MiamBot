@@ -10,4 +10,4 @@ class Processor():
             drink = bot.getPredicate('drink')
             print(food)
             print(drink)
-            return '{"food": '+food+', "drink": '+drink+'}'
+            return answer

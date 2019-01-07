@@ -6,8 +6,8 @@
         <pattern>*</pattern>
         <template>
             <random>
-                <li>I haven't understood what you have said.((br/))Ask for help if you need.</li>
-                <li>Can you repeat what you have said?((br/))Ask for help if you need.</li>
+                <li><![CDATA[I haven't understood what you have said.<br/>Ask for help if you need.]]></li>
+                <li><![CDATA[Can you repeat what you have said?<br/>Ask for help if you need.]]></li>
             </random>
         </template>
     </category>
