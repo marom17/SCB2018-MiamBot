@@ -1,18 +1,58 @@
 <aiml version="1.0.1" encoding="UTF-8">
 
     <!-- This category works with the Standard AIML Set -->
+    
+
     <category>
-        <pattern>HELLO</pattern>
+        <pattern>I HAVE EATEN * AND DRUNK *</pattern>
         <template>
-            Hello! I'am <bot name='name'/>
+            <think>
+                <set name="type">toprocess</set>
+                <set name="food"><star index="1"/></set>
+                <set name="drink"><star index="2"/></set>
+            </think>
+            <srai>FOODPROCESS</srai>
         </template>
     </category>
 
     <category>
-        <pattern>*</pattern>
+        <pattern>I HAVE EATEN * </pattern>
         <template>
-            I don't understand what you said
+            <think>
+                <set name="type">toprocess</set>
+                <set name="food"><star index="1"/></set>
+            </think>
+            <srai>FOODPROCESS</srai>
         </template>
     </category>
 
+    <category>
+        <pattern>I HAVE DRUNK *</pattern>
+        <template>
+            <think>
+                <set name="type">toprocess</set>
+                <set name="drink"><star index="1"/></set>
+            </think>
+            <srai>FOODPROCESS</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>FOODPROCESS</pattern>
+        <template>
+            <random>
+                <li>I'm looking for what you give me</li>
+                <li>I'm searching for your calories details</li>
+            </random>
+        </template>
+    </category>
+
+    <category>
+        <pattern>NOTFOUND</pattern>
+        <template><![CDATA[
+            I haven't found one of your entry: <get name="notFoundList"/><br/>
+            Try a different spell or a food that is near.
+            ]]>
+        </template>
+    </category>
 </aiml>

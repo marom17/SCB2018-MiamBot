@@ -3,9 +3,47 @@
 
     <!-- This category works with the Standard AIML Set -->
     <category>
-        <pattern>LOAD AIML B</pattern>
+        <pattern>*</pattern>
         <template>
-            Load OK
+            <random>
+                <li>I haven't understood what you have said.((br/))Ask for help if you need.</li>
+                <li>Can you repeat what you have said?((br/))Ask for help if you need.</li>
+            </random>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* HELP *</pattern>
+        <template><srai>HELP</srai></template>
+    </category>
+
+    <category>
+        <pattern>* HELP</pattern>
+        <template><srai>HELP</srai></template>
+    </category>
+
+    <category>
+        <pattern>HELP *</pattern>
+        <template><srai>HELP</srai></template>
+    </category>
+
+    <category>
+        <pattern>HELP</pattern>
+        <template><![CDATA[
+            You can log a food/drink entry by typing:<br/>
+            * I have eaten <i>food</i> and drunk <i>drink</i><br/>
+            * I have eaten <i>food</i><br/>
+            * I have drunk <i>drink</i><br/>
+            You can also ask for your today total calories amount:
+            * What is my amount of calories ?
+            ]]>
+        </template>
+    </category>
+
+    <category>
+        <pattern>HELLO</pattern>
+        <template>
+            Hello <get name='currentUserName'/>! I'am <bot name='name'/>
         </template>
     </category>
 

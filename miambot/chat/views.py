@@ -12,7 +12,10 @@ def index(request):
 def bot(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
-        resp = chatbot.interact(json_data['message']['text'])
+        msg = json_data['message']['text']
+        usrName = json_data['message']['from']['first_name']
+        usrId = json_data['message']['from']['id']
+        resp = chatbot.interact(msg, usrName, usrId)
         return HttpResponse(resp)
     return HttpResponse("Forbidden",status=403)
 
