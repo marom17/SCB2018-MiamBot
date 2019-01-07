@@ -1,0 +1,18 @@
+<aiml version="1.0.1" encoding="UTF-8">
+
+    <!-- This category works with the Standard AIML Set -->
+    <category>
+        <pattern>HELLO</pattern>
+        <template>
+            Hello! I'am <bot name='name'/>
+        </template>
+    </category>
+
+    <category>
+        <pattern>*</pattern>
+        <template>
+            I don't understand what you said
+        </template>
+    </category>
+
+</aiml>
