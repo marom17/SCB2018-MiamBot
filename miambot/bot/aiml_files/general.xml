@@ -34,8 +34,10 @@
             * I have eaten <i>food</i> and drunk <i>drink</i><br/>
             * I have eaten <i>food</i><br/>
             * I have drunk <i>drink</i><br/>
-            You can also ask for your today total calories amount:
-            * What is my amount of calories ?
+            You can also ask for your today total calories amount:<br/>
+            * What is my amount of calories ?<br/>
+            You can search if we have a particular food or drink in the database:<br/>
+            * Do you have <i>partialFoodName</i> ?
             ]]>
         </template>
     </category>

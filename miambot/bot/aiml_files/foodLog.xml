@@ -7,7 +7,7 @@
         <pattern>I HAVE EATEN * AND DRUNK *</pattern>
         <template>
             <think>
-                <set name="type">toprocess</set>
+                <set name="type">fooddrink</set>
                 <set name="food"><star index="1"/></set>
                 <set name="drink"><star index="2"/></set>
             </think>
@@ -19,7 +19,7 @@
         <pattern>I HAVE EATEN * </pattern>
         <template>
             <think>
-                <set name="type">toprocess</set>
+                <set name="type">food</set>
                 <set name="food"><star index="1"/></set>
             </think>
             <srai>FOODPROCESS</srai>
@@ -30,7 +30,7 @@
         <pattern>I HAVE DRUNK *</pattern>
         <template>
             <think>
-                <set name="type">toprocess</set>
+                <set name="type">drink</set>
                 <set name="drink"><star index="1"/></set>
             </think>
             <srai>FOODPROCESS</srai>
@@ -53,6 +53,20 @@
             I haven't found one of your entry: <get name="notFoundList"/><br/>
             Try a different spell or a food that is near.
             ]]>
+        </template>
+    </category>
+
+    <category>
+        <pattern>DO YOU HAVE * ?</pattern>
+        <template>
+            <think>
+                <set name="type">search</set>
+            </think>
+            <random>
+                <li>I'm searching in the database</li>
+                <li>I'm looking for <star/></li>
+                <li>I'm searching <star/> in the databse</li>
+            </random>
         </template>
     </category>
 </aiml>

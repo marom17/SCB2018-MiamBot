@@ -1,7 +1,9 @@
 import aiml
 import os
 import bot.config as cfg
-from bot.processing import Processor
+from .processing import Processor
+import threading
+
 
 
 class MiamBot(aiml.Kernel):
@@ -22,12 +24,15 @@ class MiamBot(aiml.Kernel):
         for file in os.listdir(cfg.AIML_SET):
             self.learn(os.path.join(cfg.AIML_SET,file))
 
-    def interact(self, msg, user, usrId):
-        self.setPredicate('currentUserName', user)
-        self.setPredicate('userId', usrId)
-        self.setPredicate('type', 'answer')
-        resp = self.respond(msg)
-        resp = self.processor.proc(self, resp)
+    def interact(self, msg, user, usrId, chatId):
+        sessionData = self.getSessionData(chatId)
+        self.setPredicate('currentUserName', user, chatId)
+        self.setPredicate('userId', usrId, chatId)
+        self.setPredicate('type', 'answer', chatId)
+        resp = self.respond(msg, chatId)
+        t1 = threading.Thread(target=self.processor.proc(self, resp, chatId))
+        t1.setDaemon(True)
+        t1.start()
         return resp
 
 if __name__ == "__main__":
