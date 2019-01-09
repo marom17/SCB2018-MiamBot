@@ -49,18 +49,25 @@
 
     <category>
         <pattern>NOTFOUND</pattern>
-        <template><![CDATA[
+        <template>
             I haven't found one of your entry: <get name="notFoundList"/>\n
             Try a different spell or a food that is near.
-            ]]>
         </template>
     </category>
 
     <category>
-        <pattern>DO YOU HAVE * ?</pattern>
+        <pattern>ALLFOUND</pattern>
+        <template>
+            I've found all the aliments
+        </template>
+    </category>
+
+    <category>
+        <pattern>DO YOU HAVE *</pattern>
         <template>
             <think>
                 <set name="type">search</set>
+                <set name="search"><star/></set>
             </think>
             <random>
                 <li>I'm searching in the database</li>
