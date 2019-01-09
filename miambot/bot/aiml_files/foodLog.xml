@@ -50,7 +50,7 @@
     <category>
         <pattern>NOTFOUND</pattern>
         <template><![CDATA[
-            I haven't found one of your entry: <get name="notFoundList"/><br/>
+            I haven't found one of your entry: <get name="notFoundList"/>\n
             Try a different spell or a food that is near.
             ]]>
         </template>
