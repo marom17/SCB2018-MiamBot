@@ -25,7 +25,7 @@ SECRET_KEY = '06^e-k5(@0o9bnxm8o@jyaji*_ie5j0f@&#p0sacmj+d@8&obf'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['chatbot.marom.ch']
+ALLOWED_HOSTS = ['chatbot.marom.ch', 'localhost', '127.0.0.1']
 
 
 # Application definition
