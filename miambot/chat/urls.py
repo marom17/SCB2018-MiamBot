@@ -3,7 +3,7 @@ from django.urls import path
 from . import views
 
 f = open(".token")
-token = f.readline()
+token = f.readline().rstrip()
 f.close()
 
 urlpatterns = [
