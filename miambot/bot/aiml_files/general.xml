@@ -49,4 +49,11 @@
         </template>
     </category>
 
+    <category>
+        <pattern>/START</pattern>
+        <template>
+            <srai>HELLO</srai>\n
+            <srai>HELP</srai>
+    </category>
+
 </aiml>
