@@ -15,6 +15,6 @@ class Processor():
         if(msgType not in "answer"):
             food = bot.getPredicate('food', chatId)
             drink = bot.getPredicate('drink', chatId)
-            Search.search('apple', self.data, True)
+            Search.search('apple', self.data, True, False)
             print(food)
             print(drink)
