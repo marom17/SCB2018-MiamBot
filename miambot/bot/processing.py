@@ -23,4 +23,4 @@ class Processor():
             Search.search('apple', self.data, True, False)
             print(food)
             print(drink)
-            request.post("https://api.telegram.org/bot"+token+"/sendMessage",data={'chat_id':chatId, 'text':'test', 'parse_mode':'HTML'})
+            #request.post("https://api.telegram.org/bot"+token+"/sendMessage",data={'chat_id':chatId, 'text':'test', 'parse_mode':'HTML'})

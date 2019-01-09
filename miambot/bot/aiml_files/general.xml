@@ -50,10 +50,11 @@
     </category>
 
     <category>
-        <pattern>/START</pattern>
+        <pattern>START</pattern>
         <template>
             <srai>HELLO</srai>\n
             <srai>HELP</srai>
+        </template>
     </category>
 
 </aiml>

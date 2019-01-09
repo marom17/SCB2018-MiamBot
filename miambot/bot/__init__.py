@@ -25,14 +25,17 @@ class MiamBot(aiml.Kernel):
             self.learn(os.path.join(cfg.AIML_SET,file))
 
     def interact(self, msg, user, usrId, chatId):
-        sessionData = self.getSessionData(chatId)
         self.setPredicate('currentUserName', user, chatId)
         self.setPredicate('userId', usrId, chatId)
         self.setPredicate('type', 'answer', chatId)
-        resp = self.respond(msg, chatId)
-        t1 = threading.Thread(target=self.processor.proc(self, resp, chatId))
-        t1.setDaemon(True)
-        t1.start()
+        if("/start" in msg):
+            resp = self.respond("start", chatId)
+        else:
+            sessionData = self.getSessionData(chatId)
+            resp = self.respond(msg, chatId)
+            t1 = threading.Thread(target=self.processor.proc(self, resp, chatId))
+            t1.setDaemon(True)
+            t1.start()
         return resp
 
 if __name__ == "__main__":
