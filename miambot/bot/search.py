@@ -15,21 +15,29 @@ class Search():
     def search(value, data, food):
         matching = []
         tokens = nltk.word_tokenize(value)
-        tagged = nltk.pos_tag(tokens)
+        tagged = nltk.pos_tag(tokens) ## (word, type)
         toSearch = []
+        p = nltk.PorterStemmer()
 
         for t in tagged:
             if(t[1] in TOKEEP):
-                toSearch.append(t[0])
-        print(toSearch)
+                toSearch.append(p.stem(t[0].lower()))## Remove plurial
 
         for k in data['food-items']:
-            if(food and not k['liquid']):
-                if(re.search(value, k['name'], re.IGNORECASE)):
+            allMatch = False
+            ## We search if the food name have all the word that we search
+            for w in toSearch:
+                if(re.search(w, k['name'], re.IGNORECASE)):
+                    allMatch = True
+                else:
+                    allMatch = False
+                    ## We go out of the loop if there is 1 missmatch
+                    break
+            if(allMatch):
+                if(food and not k['liquid']):
                     matching.append(k)
 
-            elif(not food and k['liquid']):
-                if(re.search(value, k['name'], re.IGNORECASE)):
+                elif(not food and k['liquid']):
                     matching.append(k)
 
         return matching
