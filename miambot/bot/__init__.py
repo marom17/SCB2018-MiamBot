@@ -18,21 +18,26 @@ class MiamBot(aiml.Kernel):
         for p in properties:
             self.setBotPredicate( p, properties[p])
 
+        ## Init the processing engine
         self.processor = Processor()
 
     def init_bot(self):
         for file in os.listdir(cfg.AIML_SET):
+            ## Load all aiml files
             self.learn(os.path.join(cfg.AIML_SET,file))
 
+    ## Function to interact with the bot
     def interact(self, msg, user, usrId, chatId):
         self.setPredicate('currentUserName', user, chatId)
         self.setPredicate('userId', usrId, chatId)
         self.setPredicate('type', 'answer', chatId)
+        ## Handle first message from telegram
         if("/start" in msg):
             resp = self.respond("start", chatId)
         else:
             sessionData = self.getSessionData(chatId)
             resp = self.respond(msg, chatId)
+            ## Send processing to background process
             t1 = threading.Thread(target=self.processor.proc(self, resp, chatId))
             t1.setDaemon(True)
             t1.start()
