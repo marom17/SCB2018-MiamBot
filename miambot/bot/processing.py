@@ -1,5 +1,6 @@
 import os
 import json
+import bot.search
 from .search import Search
 import requests
 
@@ -94,4 +95,10 @@ class Processor():
                         resp += "* "+f['name']+"\n"
                     print(resp)
                     #request.post("https://api.telegram.org/bot"+token+"/sendMessage",data={'chat_id':chatId, 'text':resp, 'parse_mode':'HTML'})
+
+    ## Select the food that is the most near the search
+    def selectFood(self, tab):
+        selected = None
+
+        return selected
             
