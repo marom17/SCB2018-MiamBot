@@ -108,3 +108,4 @@ venv.bak/
 .vscode
 #bot brain
 *.brn
+data/certbot
