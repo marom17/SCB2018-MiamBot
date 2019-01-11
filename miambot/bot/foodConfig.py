@@ -1,11 +1,11 @@
 ## This config file containe approximative food grammage
-## All value are in grammes
+## All value are in grams
 
 ##Fruit (cat 3)
 FRUITGR = 150
 
 ## Liquids
-LIGDL = 3.3 # In deciliter
+LIQDL = 3.3 # In deciliter, base on average bottle size
 
 ## Food plate base on green fork
 

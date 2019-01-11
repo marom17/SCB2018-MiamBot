@@ -126,6 +126,8 @@ class Processor():
 
         return selected
 
+    ## Get the number of calories a product have
+    ## We only search in the first part of a product name
     def getCalories(self, found):
         for f in found:
             kcal = 0
@@ -133,6 +135,7 @@ class Processor():
             fkcal = float(f['composition']['energy-kcal']['value'])
             liquid = int(f['liquid'])
             fgr = 0
+            ## Find the number of grams of a portion
             if(liquid == 0):
                 # Fruit
                 if(self.inCat('3/', fcat)):
@@ -158,12 +161,13 @@ class Processor():
                 else:
                     fgr = fcg.DEFAULTG
             else:
-                fgr = 3.3
+                fgr = fcg.LIQDL
             kcal = (fgr/100.0) * fkcal
             print("%s of %s: %s kcal" % (fgr, f['name'], kcal))
 
         return None
 
+    ## Find a food belong to a specific category or subcategory
     def inCat(self, toSearch, listCat):
         for cat in listCat:
             if(re.search(toSearch,cat,re.IGNORECASE)):
