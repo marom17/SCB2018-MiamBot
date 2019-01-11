@@ -14,7 +14,7 @@ services:
       - "443:443"
       - "8000:8000"
     environment:
-      -  PROD = 1
+      -  PROD=1
     command: "/bin/sh -c 'python3 manage.py migrate & python3 manage.py runserver 0.0.0.0:8000 & while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
   certbot:
     image: certbot/certbot
