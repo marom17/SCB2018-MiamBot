@@ -38,6 +38,8 @@ class Processor():
 
                 matching = []
                 notFound = []
+                selected = []
+
                 if(msgType in "food"):
                     for f in food:
                         found = Search.search(f, self.data, True)
@@ -45,6 +47,7 @@ class Processor():
                             notFound.append(f)
                         else:
                             matching.append(found)
+                        selected.append(self.selectFood(found, food, False))
                 elif(msgType in "drink"):
                     for d in drink:
                         found = Search.search(d, self.data, False)
@@ -52,6 +55,7 @@ class Processor():
                             notFound.append(d)
                         else:
                             matching.append(found)
+                        selected.append(self.selectFood(found, drink, True))
                 else:
                     for f in food:
                         found = Search.search(f, self.data, True)
@@ -59,12 +63,15 @@ class Processor():
                             notFound.append(f)
                         else:
                             matching.append(found)
+                        selected.append(self.selectFood(found, food, False))
                     for d in drink :
                         found = Search.search(d, self.data, False)
                         if(len(found) == 0):
                             notFound.append(d)
                         else:
                             matching.append(found)
+                        selected.append(self.selectFood(found, drink, True))
+
                 ## Some food are not found
                 if(len(notFound) != 0):
                     string = ""
@@ -78,6 +85,9 @@ class Processor():
                 else:
                     resp = bot.respond("ALLFOUND", chatId)
                     #request.post("https://api.telegram.org/bot"+token+"/sendMessage",data={'chat_id':chatId, 'text':resp, 'parse_mode':'HTML'})
+
+                ## Search the calories of the food
+                self.getCalories(selected)
                 
             ## Search in the database
             elif(msgType in "search"):
@@ -98,8 +108,47 @@ class Processor():
                     #request.post("https://api.telegram.org/bot"+token+"/sendMessage",data={'chat_id':chatId, 'text':resp, 'parse_mode':'HTML'})
 
     ## Select the food that is the most near the search
-    def selectFood(self, tab):
+    def selectFood(self, tab, search, liquid):
         selected = None
 
         return selected
+
+    def getCalories(self, found):
+        for f in found:
+            kcal = 0
+            fCat = f['categories']
+            fkcal = f['composition']['energy-kcal']['value']
+            liquid = f['liquid']
+            fgr = 0
+            if(liquid == 0):
+                # Fruit
+                if("3/" in fCat):
+                    frg = fcg.FRUITGR
+                # Vegetables
+                elif("7/" in fcat):
+                    frg = fcg.VEGEG
+                #Meat and Fish
+                elif("15/" in fcat or "16/" in fcat):
+                    frg = fcg.MEATG
+                # Ceral and potatoes
+                elif("12/" in fcat):
+                    if("12/4" in fcat):
+                        frg = fcg.POTG
+                    else:
+                        frg = fcg.CEREG  
+                # Yogurth                  
+                elif("6/" in fcat):
+                    if("6/5" in fcat)
+                        frg = fcg.YOGG
+                    else:
+                        frg = fcg.CHEESEG
+                else:
+                    frg = fcg.DEFAULTG
+            else:
+                fgr = 3.3
+            
+            kcal = fgr * fkcal
+            print("%s of %s: %s kcal", fgr, f['name'], kcal)
+
+        return None
             

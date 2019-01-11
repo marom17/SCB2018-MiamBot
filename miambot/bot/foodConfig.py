@@ -25,3 +25,6 @@ YOGG = 120
 ## cheese (cat 6)
 CHEESEG = 40
 
+## Default
+DEFAULTG = 100
+
