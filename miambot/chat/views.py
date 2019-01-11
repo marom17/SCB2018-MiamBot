@@ -18,9 +18,9 @@ def bot(request):
         usrName = json_data['message']['from']['first_name']
         usrId = json_data['message']['from']['id']
         chatId = json_data['message']['chat']['id']
-        resp = chatbot.interact(msg, usrName, usrId, chatId)
+        chatbot.interact(msg, usrName, usrId, chatId)
         ## Return imediatly a respond to telegram
-        return HttpResponse('{"method":"sendMessage", "chat_id":'+str(chatId)+', "text":"'+resp+'", "parse_mode":"HTML"}', status=200, content_type="application/json")
+        return HttpResponse(status=200)
     return HttpResponse("Forbidden",status=403)
 
 

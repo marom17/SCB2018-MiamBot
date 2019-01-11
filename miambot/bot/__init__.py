@@ -3,8 +3,11 @@ import os
 import bot.config as cfg
 from .processing import Processor
 import threading
+import requests
 
-
+f = open(".token")
+token = f.readline().rstrip()
+f.close()
 
 class MiamBot(aiml.Kernel):
     # Create the kernel and learn AIML files
@@ -37,11 +40,11 @@ class MiamBot(aiml.Kernel):
         else:
             sessionData = self.getSessionData(chatId)
             resp = self.respond(msg, chatId)
+            requests.post("https://api.telegram.org/bot"+token+"/sendMessage",data={"chat_id":chatId, "text":resp, "parse_mode":"HTML"})
             ## Send processing to background process
             t1 = threading.Thread(target=self.processor.proc(self, resp, chatId))
             t1.setDaemon(True)
             t1.start()
-        return resp
 
 if __name__ == "__main__":
     bot = MiamBot()

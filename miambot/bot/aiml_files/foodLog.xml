@@ -50,7 +50,8 @@
     <category>
         <pattern>NOTFOUND</pattern>
         <template>
-            I haven't found one of your entry: <get name="notFoundList"/>\n
+            I haven't found one of your entry: <get name="notFoundList"/>
+            
             Try a different spell or a food that is near.
         </template>
     </category>
