@@ -10,6 +10,8 @@ f = open(".token")
 token = f.readline().rstrip()
 f.close()
 
+PROD = os.getenv('PROD')
+
 class Processor():
 
     def __init__(self):
@@ -80,11 +82,14 @@ class Processor():
                     string = string[:-2] # Remove the last coma space of the list
                     bot.setPredicate("notFoundList", string, chatId)
                     resp = bot.respond("NOTFOUND", chatId)
-                    #request.post("https://api.telegram.org/bot"+token+"/sendMessage",data={'chat_id':chatId, 'text':resp, 'parse_mode':'HTML'})
+                    if(PROD):
+                        request.post("https://api.telegram.org/bot"+token+"/sendMessage",data={'chat_id':chatId, 'text':resp, 'parse_mode':'HTML'})
                 ## Everything is found
                 else:
                     resp = bot.respond("ALLFOUND", chatId)
-                    #request.post("https://api.telegram.org/bot"+token+"/sendMessage",data={'chat_id':chatId, 'text':resp, 'parse_mode':'HTML'})
+                    if(PROD):
+                        print('hello')
+                        request.post("https://api.telegram.org/bot"+token+"/sendMessage",data={'chat_id':chatId, 'text':resp, 'parse_mode':'HTML'})
 
                 ## Search the calories of the food
                 self.getCalories(selected)
@@ -98,13 +103,15 @@ class Processor():
                 if(len(matching) == 0):
                     bot.setPredicate("notFoundList", toSearch, chatId)
                     resp = bot.respond("NOTFOUND", chatId)
-                    #request.post("https://api.telegram.org/bot"+token+"/sendMessage",data={'chat_id':chatId, 'text':resp, 'parse_mode':'HTML'})
+                    if(PROD):
+                        request.post("https://api.telegram.org/bot"+token+"/sendMessage",data={'chat_id':chatId, 'text':resp, 'parse_mode':'HTML'})
                 ## Found in the database
                 else:
                     resp = "Found in database:\n"
                     for f in matching:
                         resp += "* "+f['name']+"\n"
-                    #request.post("https://api.telegram.org/bot"+token+"/sendMessage",data={'chat_id':chatId, 'text':resp, 'parse_mode':'HTML'})
+                    if(PROD):
+                        request.post("https://api.telegram.org/bot"+token+"/sendMessage",data={'chat_id':chatId, 'text':resp, 'parse_mode':'HTML'})
 
     ## Select the food that is the most near the search
     def selectFood(self, tab, search, liquid):
