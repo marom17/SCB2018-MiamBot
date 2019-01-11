@@ -4,6 +4,7 @@ import bot.search
 from .search import Search
 import requests
 import bot.foodConfig as fcg
+import re
 
 f = open(".token")
 token = f.readline().rstrip()
@@ -18,7 +19,6 @@ class Processor():
 
     def proc(self, bot, answer, chatId):
         msgType = bot.getPredicate('type', chatId)
-        print(msgType)
 
         ## If the repsond is not an answer, we do some processing
         if(msgType not in "answer"):
@@ -104,51 +104,69 @@ class Processor():
                     resp = "Found in database:\n"
                     for f in matching:
                         resp += "* "+f['name']+"\n"
-                    print(resp)
                     #request.post("https://api.telegram.org/bot"+token+"/sendMessage",data={'chat_id':chatId, 'text':resp, 'parse_mode':'HTML'})
 
     ## Select the food that is the most near the search
     def selectFood(self, tab, search, liquid):
         selected = None
+        maxOccurence = 0
+        percent = 0.0
+        for f in tab:
+            split = f['name'].split(',')
+            first = split[0]
+            occurence = 0.0
+            for s in search:
+                if(s.lower() in first.lower()):
+                    occurence += len(s)
+            percent = occurence/len(first)
+            if(percent >= maxOccurence):
+                maxOccurence = percent
+                selected = f
+        print(selected['name'])
 
         return selected
 
     def getCalories(self, found):
         for f in found:
             kcal = 0
-            fCat = f['categories']
-            fkcal = f['composition']['energy-kcal']['value']
-            liquid = f['liquid']
+            fcat = f['categories']
+            fkcal = float(f['composition']['energy-kcal']['value'])
+            liquid = int(f['liquid'])
             fgr = 0
             if(liquid == 0):
                 # Fruit
-                if("3/" in fCat):
-                    frg = fcg.FRUITGR
+                if(self.inCat('3/', fcat)):
+                    fgr = fcg.FRUITGR
                 # Vegetables
-                elif("7/" in fcat):
-                    frg = fcg.VEGEG
+                elif(self.inCat('7/', fcat)):
+                    fgr = fcg.VEGEG
                 #Meat and Fish
-                elif("15/" in fcat or "16/" in fcat):
-                    frg = fcg.MEATG
+                elif(self.inCat('15/', fcat) or self.inCat('16/', fcat)):
+                    fgr = fcg.MEATG
                 # Ceral and potatoes
-                elif("12/" in fcat):
-                    if("12/4" in fcat):
-                        frg = fcg.POTG
+                elif(self.inCat('12/', fcat)):
+                    if(self.inCat('12/4', fcat)):
+                        fgr = fcg.POTG
                     else:
-                        frg = fcg.CEREG  
+                        fgr = fcg.CEREG  
                 # Yogurth                  
-                elif("6/" in fcat):
-                    if("6/5" in fcat)
-                        frg = fcg.YOGG
+                elif(self.inCat('6/', fcat)):
+                    if(self.inCat('6/5', fcat)):
+                        fgr = fcg.YOGG
                     else:
-                        frg = fcg.CHEESEG
+                        fgr = fcg.CHEESEG
                 else:
-                    frg = fcg.DEFAULTG
+                    fgr = fcg.DEFAULTG
             else:
                 fgr = 3.3
-            
-            kcal = fgr * fkcal
-            print("%s of %s: %s kcal", fgr, f['name'], kcal)
+            kcal = (fgr/100.0) * fkcal
+            print("%s of %s: %s kcal" % (fgr, f['name'], kcal))
 
         return None
+
+    def inCat(self, toSearch, listCat):
+        for cat in listCat:
+            if(re.search(toSearch,cat,re.IGNORECASE)):
+                return True
+        return False
             
