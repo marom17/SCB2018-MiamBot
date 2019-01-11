@@ -3,6 +3,7 @@ import json
 import bot.search
 from .search import Search
 import requests
+import bot.foodConfig as fcg
 
 f = open(".token")
 token = f.readline().rstrip()
