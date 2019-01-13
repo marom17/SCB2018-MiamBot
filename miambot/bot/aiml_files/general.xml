@@ -30,17 +30,17 @@
     <category>
         <pattern>HELP</pattern>
         <template><![CDATA[
-            You can log a food/drink entry by typing:\n
-            * I have eaten <i>food</i> and drunk <i>drink</i>\n
-            * I have eaten <i>food</i>\n
-            * I have drunk <i>drink</i>\n
-            You can also ask for your today total calories amount:\n
-            * What is my amount of calories ?\n
-            You can search if we have a particular food or drink in the database:\n
-            * Do you have <i>partialFoodName</i> ?\n
-            You can get your today or last 7 days calories amount:\n
-            * How many calories today ?\n
-            * How many calories last days ?\n
+            You can log a food/drink entry by typing:/n
+            * I have eaten <i>[food]</i> and drunk <i>[drink]</i>/n
+            * I have eaten <i>[food]</i>/n
+            * I have drunk <i>[drink]</i>/n
+            You can also ask for your today total calories amount:/n
+            * What is my amount of calories ?/n
+            You can search if we have a particular food or drink in the database:/n
+            * Do you have <i>[partialFoodName]</i> ?/n
+            You can get your today or last 7 days calories amount:/n
+            * How many calories today ?/n
+            * How many calories last days ?/n
             ]]>
         </template>
     </category>

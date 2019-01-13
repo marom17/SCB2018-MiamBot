@@ -9,6 +9,8 @@ f = open(".token")
 token = f.readline().rstrip()
 f.close()
 
+PROD = os.getenv('PROD')
+
 class MiamBot(aiml.Kernel):
     # Create the kernel and learn AIML files
     def __init__(self,properties=cfg.BOT_PROPERTIES):
@@ -37,10 +39,13 @@ class MiamBot(aiml.Kernel):
         ## Handle first message from telegram
         if("/start" in msg):
             resp = self.respond("start", chatId)
+            if(PROD):
+                requests.post("https://api.telegram.org/bot"+token+"/sendMessage",data={"chat_id":chatId, "text":resp, "parse_mode":"HTML"})
         else:
             sessionData = self.getSessionData(chatId)
-            resp = self.respond(msg, chatId)
-            requests.post("https://api.telegram.org/bot"+token+"/sendMessage",data={"chat_id":chatId, "text":resp, "parse_mode":"HTML"})
+            resp = self.respond(msg, chatId).replace("/n",'\n')
+            if(PROD):
+                requests.post("https://api.telegram.org/bot"+token+"/sendMessage",data={"chat_id":chatId, "text":resp, "parse_mode":"HTML"})
             ## Send processing to background process
             t1 = threading.Thread(target=self.processor.proc(self, resp, chatId))
             t1.setDaemon(True)
