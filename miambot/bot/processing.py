@@ -6,6 +6,8 @@ import requests
 import bot.foodConfig as fcg
 import re
 
+import bot.db as db
+
 f = open(".token")
 token = f.readline().rstrip()
 f.close()
@@ -90,7 +92,7 @@ class Processor():
                     if(PROD):
                         requests.post("https://api.telegram.org/bot"+token+"/sendMessage",data={"chat_id":chatId, "text":resp, "parse_mode":"HTML"})
                 ## Search the calories of the food
-                self.getCalories(selected)
+                self.getCalories(selected, chatId)
                 
             ## Search in the database
             elif(msgType in "search"):
@@ -111,6 +113,19 @@ class Processor():
                     if(PROD):
                         requests.post("https://api.telegram.org/bot"+token+"/sendMessage",data={"chat_id":chatId, "text":resp, "parse_mode":"HTML"})
 
+            elif(msgType in "tcal"):
+                resp = "Your today consumption is " + str(db.DB.getCalories(chatId))
+                print(resp)
+                if(PROD):
+                    requests.post("https://api.telegram.org/bot"+token+"/sendMessage",data={"chat_id":chatId, "text":resp, "parse_mode":"HTML"})
+            
+            elif(msgType in "7cal"):
+                resp = "Your last days consumption is:\n"
+                days = db.DB.getLast7Calories(chatId)
+                if(PROD):
+                    requests.post("https://api.telegram.org/bot"+token+"/sendMessage",data={"chat_id":chatId, "text":resp, "parse_mode":"HTML"})
+                
+
     ## Select the food that is the most near the search
     def selectFood(self, tab, search, liquid):
         selected = None
@@ -127,13 +142,12 @@ class Processor():
             if(percent >= maxOccurence):
                 maxOccurence = percent
                 selected = f
-        print(selected['name'])
 
         return selected
 
     ## Get the number of calories a product have
     ## We only search in the first part of a product name
-    def getCalories(self, found):
+    def getCalories(self, found, chatId):
         for f in found:
             kcal = 0
             fcat = f['categories']
@@ -168,7 +182,7 @@ class Processor():
             else:
                 fgr = fcg.LIQDL
             kcal = (fgr/100.0) * fkcal
-            print("%s of %s: %s kcal" % (fgr, f['name'], kcal))
+            db.DB.enterCalories(chatId, kcal)
 
         return None
 

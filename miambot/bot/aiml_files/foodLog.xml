@@ -77,4 +77,24 @@
             </random>
         </template>
     </category>
+
+    <category>
+        <pattern>HOW MANY CALORIES TODAY</pattern>
+        <template>
+            <think>
+                <set name="type">tcal</set>
+            </think>
+            I'm searching your today calories consumption
+        </template>
+    </category>
+
+    <category>
+        <pattern>HOW MANY CALORIES LAST DAYS</pattern>
+        <template>
+            <think>
+                <set name="type">7cal</set>
+            </think>
+            I'm searching last days calories consumption
+        </template>
+    </category>
 </aiml>

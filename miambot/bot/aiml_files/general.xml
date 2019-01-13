@@ -37,7 +37,10 @@
             You can also ask for your today total calories amount:\n
             * What is my amount of calories ?\n
             You can search if we have a particular food or drink in the database:\n
-            * Do you have <i>partialFoodName</i> ?
+            * Do you have <i>partialFoodName</i> ?\n
+            You can get your today or last 7 days calories amount:\n
+            * How many calories today ?\n
+            * How many calories last days ?\n
             ]]>
         </template>
     </category>
