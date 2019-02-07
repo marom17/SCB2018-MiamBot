@@ -55,7 +55,7 @@
     <category>
         <pattern>START</pattern>
         <template>
-            <srai>HELLO</srai>\n
+            <srai>HELLO</srai>/n
             <srai>HELP</srai>
         </template>
     </category>
