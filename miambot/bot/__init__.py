@@ -38,7 +38,7 @@ class MiamBot(aiml.Kernel):
         self.setPredicate('type', 'answer', chatId)
         ## Handle first message from telegram
         if("/start" in msg):
-            resp = self.respond("start", chatId)
+            resp = self.respond("start", chatId).replace("/n",'\n')
             if(PROD):
                 requests.post("https://api.telegram.org/bot"+token+"/sendMessage",data={"chat_id":chatId, "text":resp, "parse_mode":"HTML"})
         else:
