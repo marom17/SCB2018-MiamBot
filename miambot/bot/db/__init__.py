@@ -55,8 +55,23 @@ class DB():
     @staticmethod
     def getLast7Calories(userId):
         db_client = connect("scb2018-miambot", host=cred['HOST'])
-        user = User.objects(username = userId)
-        db_client.close()
+        consumption = []
+        user = User.objects(username = str(userId))
+        try:
+            u = user[0]
+            for i in range(0,6):
+                
+                day = str((datetime.now() - timedelta(days=+i)).date())
+                try:                
+                    consumption.append(day + ": " + str(u.calories[day]))
+                except (KeyError):
+                    consumption.append(day + ": 0")
+
+            db_client.close()
+        except (IndexError):
+            print("Index error")
+            
+        return consumption
 
 class User(Document):
     username = StringField(require=True)

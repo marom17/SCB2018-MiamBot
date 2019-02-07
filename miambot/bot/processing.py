@@ -115,13 +115,16 @@ class Processor():
 
             elif(msgType in "tcal"):
                 resp = "Your today consumption is " + str(db.DB.getCalories(chatId))
-                print(resp)
+                
                 if(PROD):
                     requests.post("https://api.telegram.org/bot"+token+"/sendMessage",data={"chat_id":chatId, "text":resp, "parse_mode":"HTML"})
             
             elif(msgType in "7cal"):
                 resp = "Your last days consumption is:\n"
                 days = db.DB.getLast7Calories(chatId)
+                for d in days:
+                    resp+= d + "\n"
+                
                 if(PROD):
                     requests.post("https://api.telegram.org/bot"+token+"/sendMessage",data={"chat_id":chatId, "text":resp, "parse_mode":"HTML"})
                 
