@@ -26,6 +26,7 @@ TelegramBotToken
 }
 ```
 Also update data/nginx/app.con according to your certificates and domain name.
+
 Build the bot server image
 ```sh
 sudo docker-compose build
