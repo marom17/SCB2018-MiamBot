@@ -1,0 +1,61 @@
+
+<aiml version="1.0.1" encoding="UTF-8">
+
+    <!-- This category works with the Standard AIML Set -->
+    <category>
+        <pattern>*</pattern>
+        <template>
+            <random>
+                <li><![CDATA[I haven't understood what you have said.\nAsk for help if you need.]]></li>
+                <li><![CDATA[Can you repeat what you have said?\nAsk for help if you need.]]></li>
+            </random>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* HELP *</pattern>
+        <template><srai>HELP</srai></template>
+    </category>
+
+    <category>
+        <pattern>* HELP</pattern>
+        <template><srai>HELP</srai></template>
+    </category>
+
+    <category>
+        <pattern>HELP *</pattern>
+        <template><srai>HELP</srai></template>
+    </category>
+
+    <category>
+        <pattern>HELP</pattern>
+        <template><![CDATA[
+            You can log a food/drink entry by typing:/n
+            * I have eaten <i>[food]</i> and drunk <i>[drink]</i>/n
+            * I have eaten <i>[food]</i>/n
+            * I have drunk <i>[drink]</i>/n
+            You can search if we have a particular food or drink in the database:/n
+            * Do you have <i>[partialFoodName]</i> ?/n
+            You can get your today or last 7 days calories amount:/n
+            * How many calories today ?/n
+            * How many calories last days ?/n
+            ]]>
+        </template>
+    </category>
+
+    <category>
+        <pattern>HELLO</pattern>
+        <template>
+            Hello <get name='currentUserName'/>! I'am <bot name='name'/>
+        </template>
+    </category>
+
+    <category>
+        <pattern>START</pattern>
+        <template>
+            <srai>HELLO</srai>/n
+            <srai>HELP</srai>
+        </template>
+    </category>
+
+</aiml>

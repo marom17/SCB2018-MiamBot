@@ -1,0 +1,100 @@
+<aiml version="1.0.1" encoding="UTF-8">
+
+    <!-- This category works with the Standard AIML Set -->
+    
+
+    <category>
+        <pattern>I HAVE EATEN * AND DRUNK *</pattern>
+        <template>
+            <think>
+                <set name="type">fooddrink</set>
+                <set name="food"><star index="1"/></set>
+                <set name="drink"><star index="2"/></set>
+            </think>
+            <srai>FOODPROCESS</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>I HAVE EATEN * </pattern>
+        <template>
+            <think>
+                <set name="type">food</set>
+                <set name="food"><star index="1"/></set>
+            </think>
+            <srai>FOODPROCESS</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>I HAVE DRUNK *</pattern>
+        <template>
+            <think>
+                <set name="type">drink</set>
+                <set name="drink"><star index="1"/></set>
+            </think>
+            <srai>FOODPROCESS</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>FOODPROCESS</pattern>
+        <template>
+            <random>
+                <li>I'm looking for what you give me</li>
+                <li>I'm searching for your calories details</li>
+            </random>
+        </template>
+    </category>
+
+    <category>
+        <pattern>NOTFOUND</pattern>
+        <template>
+            I haven't found one of your entry: <get name="notFoundList"/>
+            
+            Try a different spell or a food that is near.
+        </template>
+    </category>
+
+    <category>
+        <pattern>ALLFOUND</pattern>
+        <template>
+            I've found all the aliments
+        </template>
+    </category>
+
+    <category>
+        <pattern>DO YOU HAVE *</pattern>
+        <template>
+            <think>
+                <set name="type">search</set>
+                <set name="search"><star/></set>
+            </think>
+            <random>
+                <li>I'm searching in the database</li>
+                <li>I'm looking for <star/></li>
+                <li>I'm searching <star/> in the databse</li>
+            </random>
+        </template>
+    </category>
+
+    <category>
+        <pattern>HOW MANY CALORIES TODAY</pattern>
+        <template>
+            <think>
+                <set name="type">tcal</set>
+            </think>
+            I'm searching your today calories consumption
+        </template>
+    </category>
+
+    <category>
+        <pattern>HOW MANY CALORIES LAST DAYS</pattern>
+        <template>
+            <think>
+                <set name="type">7cal</set>
+            </think>
+            I'm searching last days calories consumption
+        </template>
+    </category>
+</aiml>

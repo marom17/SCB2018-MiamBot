@@ -102,3 +102,14 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# visual studio code
+.vscode
+
+# personal files
+.token
+.credential
+
+# bot brain
+*.brn
+data/certbot
